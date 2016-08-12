@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="FarmManager.UI.Bot"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FarmManager.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="555" d:DesignWidth="444">
+    <Grid>
+        <StackPanel>
+            <GroupBox
+                Header="break">
+                <StackPanel
+                    Name="BreakPanel"
+                    Orientation="Horizontal">
+                    <StackPanel
+                        Orientation="Horizontal">
+                        <TextBlock Text="current break ends in"></TextBlock>
+                        <TextBox Name="BreakDurationRemainingView" IsReadOnly="True" Width="77" Margin="3"></TextBox>
+                    </StackPanel>
+                    <Button
+                        VerticalAlignment="Center"
+                        Click="BreakEndButton_Click">
+                        <TextBlock Text="end break now"></TextBlock>
+                    </Button>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox
+            Header="statistics">
+                <local:BotStatistic
+                x:Name="StatisticsView"></local:BotStatistic>
+            </GroupBox>
+            <GroupBox
+                Header="last step">
+                <local:BotStepReport
+                    x:Name="StepLastView"
+                    Height="233"></local:BotStepReport>
+            </GroupBox>
+
+            <GroupBox Header="game enter URL measured">
+                <TextBox Name="GameEnterUrlView" IsReadOnly="True"></TextBox>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="FarmManager.UI.Browser"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FarmManager.UI"
+             xmlns:Limbara.UI="clr-namespace:Limbara.UI;assembly=Limbara.UI"
+             xmlns:Bib3.FCL.UI="clr-namespace:Bib3.FCL.UI;assembly=Bib3.FCL"
+             mc:Ignorable="d" 
+             d:DesignHeight="444" d:DesignWidth="300">
+    <Grid>
+        <DockPanel>
+            <GroupBox
+                DockPanel.Dock="Top">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="browser process"></TextBlock>
+                        <Bib3.FCL.UI:StatusIcon
+                            x:Name="BrowserProcessCurrentStatusIconView"
+                            x:FieldModifier="public"></Bib3.FCL.UI:StatusIcon>
+                    </StackPanel>
+                </GroupBox.Header>
+                <StackPanel>
+                    <Button
+                        x:Name="BrowserProcessCreateButton"
+                        x:FieldModifier="public"
+                        Click="BrowserProcessCreateButton_Click"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        <TextBlock Text="create browser process"></TextBlock>
+                    </Button>
+                    <CheckBox
+                        x:Name="BrowserProcessStartAutomaticEnableCheckBox"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Margin="3">
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="0.8" ScaleY="0.8"></ScaleTransform>
+                        </CheckBox.LayoutTransform>
+                        <TextBlock Text="enable automatic restart"></TextBlock>
+                    </CheckBox>
+                    <GroupBox
+                        Header="current process">
+                        <TextBox
+                            Name="BrowserProcessCurrentStatusTextView"
+                            IsReadOnly="True"
+                            Height="55"
+                            VerticalScrollBarVisibility="Auto"></TextBox>
+                    </GroupBox>
+                </StackPanel>
+            </GroupBox>
+            <Limbara.UI:Interface
+                x:Name="BrowserInterfaceControl"
+                x:FieldModifier="public"></Limbara.UI:Interface>
+        </DockPanel>
+    </Grid>
+</UserControl>

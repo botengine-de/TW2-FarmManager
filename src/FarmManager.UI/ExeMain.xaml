@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="FarmManager.UI.ExeMain"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FarmManager.UI"
+             xmlns:Bib3.FCL.GBS="clr-namespace:Bib3.FCL.GBS;assembly=Bib3.FCL"
+             xmlns:Bib3.FCL.UI="clr-namespace:Bib3.FCL.UI;assembly=Bib3.FCL"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="444">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="Bib3.FCL.UI:StatusIcon" BasedOn="{StaticResource {x:Type Bib3.FCL.UI:StatusIcon}}">
+                <Setter Property="Height" Value="14"></Setter>
+            </Style>
+        </Grid.Resources>
+        <TabControl>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Browser"></TextBlock>
+                        <Grid Width="3"></Grid>
+                        <Bib3.FCL.UI:StatusIcon
+                            Name="BrowserStatusIcon"></Bib3.FCL.UI:StatusIcon>
+                    </StackPanel>
+                </TabItem.Header>
+                <local:Browser
+                    x:Name="BrowserControl"
+                    x:FieldModifier="public"></local:Browser>
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Grid
+                            VerticalAlignment="Center"
+                            Name="PanelMeasureDesiredHeight">
+                            <TextBlock Text="Bot"></TextBlock>
+                        </Grid>
+
+                        <Grid Grid.Column="2" Height="{Binding ElementName=PanelMeasureDesiredHeight, Path=ActualHeight}">
+                            <Viewbox
+                                        Stretch="Uniform" StretchDirection="Both"
+                                        Margin="2,-1">
+                                <Bib3.FCL.GBS:ToggleButtonHorizBinär
+                                            x:Name="ToggleButtonMotionEnable"
+                                            x:FieldModifier="public">
+                                    <Bib3.FCL.GBS:ToggleButtonHorizBinär.ButtonLinxContent>
+                                        <TextBlock
+                                            Text="pause"
+                                            ToolTip="pause input generation by clicking here or by pressing Ctrl + Alt."></TextBlock>
+                                    </Bib3.FCL.GBS:ToggleButtonHorizBinär.ButtonLinxContent>
+                                    <Bib3.FCL.GBS:ToggleButtonHorizBinär.ButtonReczContent>
+                                        <TextBlock
+                                            Text="play"
+                                            ToolTip="resume input generation."></TextBlock>
+                                    </Bib3.FCL.GBS:ToggleButtonHorizBinär.ButtonReczContent>
+                                </Bib3.FCL.GBS:ToggleButtonHorizBinär>
+                            </Viewbox>
+                        </Grid>
+
+                        <Grid Width="3"></Grid>
+                    </StackPanel>
+                </TabItem.Header>
+
+                <TabItem.Content>
+                    <ScrollViewer
+                        HorizontalScrollBarVisibility="Disabled">
+                        <local:Bot
+                            x:Name="BotControl"
+                            x:FieldModifier="public"></local:Bot>
+                    </ScrollViewer>
+                </TabItem.Content>
+            </TabItem>
+
+            <TabItem Header="support / instructions">
+                <local:Instruction></local:Instruction>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</UserControl>

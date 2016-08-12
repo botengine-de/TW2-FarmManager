@@ -1,0 +1,130 @@
+﻿<UserControl x:Class="FarmManager.UI.Instruction"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:BotEngine.UI="clr-namespace:BotEngine.UI;assembly=BotEngine.UI"
+             xmlns:local="clr-namespace:FarmManager.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="888" d:DesignWidth="555">
+    <Grid>
+        <ScrollViewer>
+            <RichTextBox
+                IsReadOnly="True"
+                IsDocumentEnabled="True">
+                <FlowDocument>
+                    <Paragraph>
+                        <Run FontSize="20" Text="FarmManager"/>
+                        <TextBlock Width="11"></TextBlock>
+                        version
+                        <TextBlock Text="{StaticResource AppVersionId}"></TextBlock>
+                        <LineBreak/>
+                        <Run Text="FarmManager is a farm bot for the game Tribal Wars 2."/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        This bot works without requiring any configuration. With default settings, it automatically reads existing reports to identify your farms and attacks them again as long as there are enough units and the defending village does not belong to any player.
+                        <LineBreak/>
+                        <LineBreak/>
+                        Found a bug or have a feature request? Contact
+                        <BotEngine.UI:HyperlinkProcessStartFilename
+                            NavigateUri="mailto:support@botengine.de?subject=TW2 FarmManager|summarize-issue-here">support@botengine.de</BotEngine.UI:HyperlinkProcessStartFilename>
+                        or post at
+                        <BotEngine.UI:HyperlinkProcessStartFilename
+                            NavigateUri="http://forum.botengine.de">http://forum.botengine.de</BotEngine.UI:HyperlinkProcessStartFilename>
+                    </Paragraph>
+
+                    <Paragraph>
+                        <Run FontSize="18" Text="Features"/>
+                    </Paragraph>
+                    <List>
+                        <ListItem>
+                            <Paragraph>zero-setup design: get started without any configuration.</Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>supports multiple villages: sends each farm attack from the corresponding village.</Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>works in background: the bot continues working when the browser is minimized.</Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>uses a real browser to interact with the game server for maximum security and comfort.</Paragraph>
+                        </ListItem>
+                    </List>
+
+                    <Paragraph>
+                        <Run FontSize="18" Text="Requirements"/>
+                    </Paragraph>
+                    <List>
+                        <ListItem>
+                            <Paragraph>
+                                <Run Text="The bot requires the google chrome browser which can be downloaded from"/>
+                                <BotEngine.UI:HyperlinkProcessStartFilename
+                            NavigateUri="https://www.google.com/chrome/browser/desktop/">https://www.google.com/chrome/browser/desktop/</BotEngine.UI:HyperlinkProcessStartFilename>
+                            </Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>
+                                <Run Text="The application requires Microsoft .NET Framework 4.6.1 to be installed which can be downloaded from"/>
+                                <BotEngine.UI:HyperlinkProcessStartFilename
+                            NavigateUri="https://www.microsoft.com/download/details.aspx?id=49982">https://www.microsoft.com/download/details.aspx?id=49982</BotEngine.UI:HyperlinkProcessStartFilename>
+                            </Paragraph>
+                        </ListItem>
+                    </List>
+
+                    <Paragraph>
+                        <Run FontSize="18" Text="Starting the bot"/>
+                    </Paragraph>
+                    <List>
+                        <ListItem>
+                            <Paragraph>Start the bot executable.</Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>In the bot window, switch to the tab "Browser". Click the button "create browser process". A new browser window will appear (this can take a few seconds).</Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>In the browser window opened by the bot, login to the game and switch to the village view. Close all popups.</Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>In the bot window, press the "play" button.</Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>The bot will now read reports and send troops.</Paragraph>
+                        </ListItem>
+                    </List>
+
+                    <Paragraph>
+                        <Run FontSize="18" Text="FAQ / Troubleshooting"/>
+                    </Paragraph>
+
+                    <List>
+                        <ListItem>
+                            <Paragraph Margin="0,0,0,0">
+                                <Run FontWeight="Bold">
+                                    Problem: No browser window opens when clicking on "create browser process".</Run>
+                            </Paragraph>
+                            <List>
+                                <ListItem>
+                                    <Paragraph>
+                                        <Run FontWeight="Bold">
+                                            The message "The system cannot find the file specified" is displayed.</Run>
+                                        <LineBreak />
+                                        Solution: Enter the path to the google chrome executable file in the textbox in the tab "config" under "path to chrome.exe".
+                                    </Paragraph>
+                                </ListItem>
+                                <ListItem>
+                                    <Paragraph>
+                                        <Run FontWeight="Bold">
+                                            The message "Browser service interface not available." is displayed.</Run>
+                                        <LineBreak />
+                                        Solution: Wait until the green checkmark in the "license" tab header is displayed. If it takes more than a minute, contact support.
+                                    </Paragraph>
+                                </ListItem>
+                            </List>
+                        </ListItem>
+                    </List>
+
+                </FlowDocument>
+            </RichTextBox>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmManager", "FarmManager\FarmManager.csproj", "{7083ECAE-866A-46BB-8BC2-A7E2CB27EB04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmManager.Test", "FarmManager.Test\FarmManager.Test.csproj", "{592E0794-BA38-499D-A039-AC632D469327}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmManager.Exe", "FarmManager.Exe\FarmManager.Exe.csproj", "{55F19B19-2573-4215-BF18-7FC21CF0332A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmManager.UI", "FarmManager.UI\FarmManager.UI.csproj", "{5263D92B-F7F5-41A7-B830-AC3261AFC732}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{57537E6A-F7D7-483D-9B2F-B7C8C3AEB975}"
+	ProjectSection(SolutionItems) = preProject
+		..\lib\Bib3.dll = ..\lib\Bib3.dll
+		..\lib\Bib3.FCL.dll = ..\lib\Bib3.FCL.dll
+		..\lib\Bib3.RefNezDif.dll = ..\lib\Bib3.RefNezDif.dll
+		..\lib\Bib3.Terz.dll = ..\lib\Bib3.Terz.dll
+		..\lib\BotEngine.Common.dll = ..\lib\BotEngine.Common.dll
+		..\lib\BotEngine.Interface.dll = ..\lib\BotEngine.Interface.dll
+		..\lib\BotEngine.Interface.Web.dll = ..\lib\BotEngine.Interface.Web.dll
+		..\lib\BotEngine.UI.dll = ..\lib\BotEngine.UI.dll
+		..\lib\BotSharp.dll = ..\lib\BotSharp.dll
+		..\lib\BotSharp.UI.dll = ..\lib\BotSharp.UI.dll
+		..\lib\Limbara.dll = ..\lib\Limbara.dll
+		..\lib\Limbara.Interface.dll = ..\lib\Limbara.Interface.dll
+		..\lib\Limbara.UI.dll = ..\lib\Limbara.UI.dll
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmManager.Report", "FarmManager.Report\FarmManager.Report.csproj", "{1113EA1B-0EC4-4489-A260-FE96FD7C6986}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7083ECAE-866A-46BB-8BC2-A7E2CB27EB04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7083ECAE-866A-46BB-8BC2-A7E2CB27EB04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7083ECAE-866A-46BB-8BC2-A7E2CB27EB04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7083ECAE-866A-46BB-8BC2-A7E2CB27EB04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{592E0794-BA38-499D-A039-AC632D469327}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{592E0794-BA38-499D-A039-AC632D469327}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{592E0794-BA38-499D-A039-AC632D469327}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{592E0794-BA38-499D-A039-AC632D469327}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55F19B19-2573-4215-BF18-7FC21CF0332A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55F19B19-2573-4215-BF18-7FC21CF0332A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55F19B19-2573-4215-BF18-7FC21CF0332A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55F19B19-2573-4215-BF18-7FC21CF0332A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5263D92B-F7F5-41A7-B830-AC3261AFC732}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5263D92B-F7F5-41A7-B830-AC3261AFC732}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5263D92B-F7F5-41A7-B830-AC3261AFC732}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5263D92B-F7F5-41A7-B830-AC3261AFC732}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1113EA1B-0EC4-4489-A260-FE96FD7C6986}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1113EA1B-0EC4-4489-A260-FE96FD7C6986}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1113EA1B-0EC4-4489-A260-FE96FD7C6986}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1113EA1B-0EC4-4489-A260-FE96FD7C6986}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
