@@ -8,7 +8,7 @@
         <ResourceDictionary Source="pack://application:,,,/BotEngine.UI;component/resource.xaml"></ResourceDictionary>
 
         <ResourceDictionary>
-            <system:String x:Key="AppVersionId">16.06.30</system:String>
+            <system:String x:Key="AppVersionId">16.08.08</system:String>
 
             <Style
                 x:Key="TabItemStyleFromBotEngine"

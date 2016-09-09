@@ -33,5 +33,8 @@ namespace FarmManager.TwStruct
 			"function(){return angular.element(this).scope().select(" + villageId + ");}";
 
 		public const string PaginationSetLimitButtonXPath = "//div[contains(@ng-click,'setLimit(')]";
+
+		static public string ReportPageLoadButtonXPathFromPageId(int pageId) =>
+			"//div[contains(@ng-click,'loadPage(') and text() = '" + pageId + "']";
 	}
 }

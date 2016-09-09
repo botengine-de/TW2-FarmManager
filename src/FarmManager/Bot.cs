@@ -52,6 +52,20 @@ namespace FarmManager
 
 	public class BotStepMeasureListReportSummary
 	{
+		public IList<BotStepMeasureListReportSummaryPageAttempt> ListPageAttempt;
+
+		public int? ListReportCount;
+	}
+
+	public class BotStepMeasureListReportSummaryPageAttempt
+	{
+		public int? PageIndex;
+
+		public int? ReportIdNewCount;
+
+		public int? ReportIdOverlapCount;
+
+		public bool? Success;
 	}
 
 	public class BotStepAttack
@@ -104,6 +118,8 @@ namespace FarmManager
 
 	public class Bot
 	{
+		const int reportListReadPageCountMax = 10;
+
 		const int BreakDurationMin = 60 * 3;
 
 		const int BreakDurationMax = 60 * 44;
@@ -343,6 +359,8 @@ namespace FarmManager
 					{
 						var measureListReport = report.MeasureListReport = new BotStepMeasureListReportSummary();
 
+						var listPageAttempt = measureListReport.ListPageAttempt = new List<BotStepMeasureListReportSummaryPageAttempt>();
+
 						var listReportControllerElem =
 							browserDocument.GetElementFromXPath(Dom.ListReportControllerXPath)?.Result;
 
@@ -357,17 +375,83 @@ namespace FarmManager
 							paginationButtonSetLimit?.click();
 							Thread.Sleep(1444);
 
-							var listReportSummaryEval =
-								listReportControllerElem.JavascriptCallFunction(Dom.JsGetListReportSummaryFromControllerElement);
+							var reportSummaryFromReportId = new Dictionary<Int64, ReportListReportSummary>();
 
-							var listReportSummarySerial = listReportSummaryEval?.Result?.value?.ToString();
+							while (true)
+							{
+								var pageAttemptFailedCount = listPageAttempt.Count(page => !(page.Success ?? false));
 
-							var listReportSummary =
-								listReportSummarySerial.DeserializeFromString<ReportListReportSummary[]>()
-								?.OrderBy(reportSummary => reportSummary?.time_created)
-								?.ToArray();
+								if (1 < pageAttemptFailedCount)
+									break;
 
-							MeasurementListReportLast = new Bib3.PropertyGenTimespanInt64<ReportListReportSummary[]>(listReportSummary, time);
+								var pageAttemptReport = new BotStepMeasureListReportSummaryPageAttempt();
+
+								var pageIndex =
+									(listPageAttempt
+									.Where(pageAttempt => pageAttempt?.Success ?? false)
+									.Select(pageAttempt => pageAttempt.PageIndex)
+									.WhereNotDefault()
+									.LastOrDefault() + 1) ?? 0;
+
+								pageAttemptReport.PageIndex = pageIndex;
+
+								try
+								{
+									if (0 < pageIndex)
+									{
+										var pageId = pageIndex + 1;
+
+										var loadPageButton =
+											browserDocument?.GetElementFromXPath(Dom.ListReportControllerXPath + Dom.ReportPageLoadButtonXPathFromPageId(pageId))?.Result;
+
+										loadPageButton?.click();
+
+										Thread.Sleep(1444);
+									}
+
+									var listReportSummaryEval =
+										listReportControllerElem.JavascriptCallFunction(Dom.JsGetListReportSummaryFromControllerElement);
+
+									var listReportSummarySerial = listReportSummaryEval?.Result?.value?.ToString();
+
+									var listReportSummary =
+										listReportSummarySerial.DeserializeFromString<ReportListReportSummary[]>()
+										?.OrderBy(reportSummary => reportSummary?.time_created)
+										?.ToArray();
+
+									pageAttemptReport.ReportIdNewCount =
+										pageAttemptReport.ReportIdOverlapCount = 0;
+
+									foreach (var reportSummary in listReportSummary.EmptyIfNull())
+									{
+										var reportId = reportSummary.id;
+
+										if (!reportId.HasValue)
+											continue;
+
+										if (reportSummaryFromReportId.ContainsKey(reportId.Value))
+											++pageAttemptReport.ReportIdOverlapCount;
+										else
+											++pageAttemptReport.ReportIdNewCount;
+
+										reportSummaryFromReportId[reportId.Value] = reportSummary;
+									}
+
+									pageAttemptReport.Success =
+										pageAttemptReport.ReportIdOverlapCount < 10 && 10 < pageAttemptReport.ReportIdNewCount;
+								}
+								finally
+								{
+									listPageAttempt.Add(pageAttemptReport);
+
+									if (pageAttemptReport.Success ?? false)
+										++pageIndex;
+								}
+							}
+
+							MeasurementListReportLast = new Bib3.PropertyGenTimespanInt64<ReportListReportSummary[]>(reportSummaryFromReportId.Values.ToArray(), time);
+
+							measureListReport.ListReportCount = MeasurementListReportLast?.Value?.Length;
 
 							return report;
 						}
