@@ -98,7 +98,9 @@ namespace FarmManager
 
 		public int BotStepCount;
 
-		public int ReportReadCount;
+		public int ReportSummaryReadCount;
+
+		public int ReportDetailReadCount;
 
 		public int AttackSentCount;
 
@@ -141,11 +143,10 @@ namespace FarmManager
 		readonly IDictionary<int, Bib3.PropertyGenTimespanInt64<UnitListControllerCommand[]>> MeasurementOutgoingUnitsLastFromVillageId =
 			new Dictionary<int, Bib3.PropertyGenTimespanInt64<UnitListControllerCommand[]>>();
 
-		public Bib3.PropertyGenTimespanInt64<ReportListReportSummary[]> MeasurementListReportLast
-		{
-			private set;
-			get;
-		}
+		readonly IDictionary<Int64, ReportListReportSummary> ReportSummaryFromId =
+			new Dictionary<Int64, ReportListReportSummary>();
+
+		Int64 MeasurementListReportLastTime;
 
 		readonly public BotStatistic Statistic = new BotStatistic
 		{
@@ -302,7 +303,7 @@ namespace FarmManager
 					var reportHandlingPlannedFromReportId = new Func<Int64, ReportHandlingPlanned>(reportId => this.ReportHandlingPlannedFromReportId(reportId, farmEnableSetVillageId));
 
 					var listReportToOpen =
-						(MeasurementListReportLast?.Value?.OrderByDescending(reportSummary => reportSummary?.time_created ?? 0))
+						(ReportSummaryFromId.Values?.OrderByDescending(reportSummary => reportSummary?.time_created ?? 0))
 						?.Where(reportSummary => reportHandlingPlannedFromReportId(reportSummary.id ?? -1)?.Open ?? false)
 						?.ToArray();
 
@@ -311,7 +312,7 @@ namespace FarmManager
 
 					var measurementOutgoingUnitsLastAge = time - measurementOutgoingUnitsLastTime;
 
-					var measureListReportDue = !(measurementOutgoingUnitsLastTime < MeasurementListReportLast?.Begin);
+					var measureListReportDue = !(measurementOutgoingUnitsLastTime < MeasurementListReportLastTime);
 
 					if (!(measurementOutgoingUnitsLastAge < 1000 * 60) &&
 						(!(measurementOutgoingUnitsLastAge < 1000 * 60 * 5) ||
@@ -357,7 +358,10 @@ namespace FarmManager
 
 					if (measureListReportDue)
 					{
-						var measureListReport = report.MeasureListReport = new BotStepMeasureListReportSummary();
+						var measureListReport = report.MeasureListReport = new BotStepMeasureListReportSummary
+						{
+							ListReportCount = 0,
+						};
 
 						var listPageAttempt = measureListReport.ListPageAttempt = new List<BotStepMeasureListReportSummaryPageAttempt>();
 
@@ -374,8 +378,6 @@ namespace FarmManager
 
 							paginationButtonSetLimit?.click();
 							Thread.Sleep(1444);
-
-							var reportSummaryFromReportId = new Dictionary<Int64, ReportListReportSummary>();
 
 							while (true)
 							{
@@ -426,19 +428,23 @@ namespace FarmManager
 									{
 										var reportId = reportSummary.id;
 
-										if (!reportId.HasValue)
+										if (!(reportId.HasValue && reportSummary.IsGoodEnoughForMemorization()))
 											continue;
 
-										if (reportSummaryFromReportId.ContainsKey(reportId.Value))
+										if (ReportSummaryFromId.ContainsKey(reportId.Value))
+										{
 											++pageAttemptReport.ReportIdOverlapCount;
-										else
-											++pageAttemptReport.ReportIdNewCount;
+											continue;
+										}
 
-										reportSummaryFromReportId[reportId.Value] = reportSummary;
+										++pageAttemptReport.ReportIdNewCount;
+
+										ReportSummaryFromId[reportId.Value] = reportSummary;
 									}
 
-									pageAttemptReport.Success =
-										pageAttemptReport.ReportIdOverlapCount < 10 && 10 < pageAttemptReport.ReportIdNewCount;
+									measureListReport.ListReportCount += pageAttemptReport.ReportIdNewCount;
+
+									pageAttemptReport.Success = 0 < pageAttemptReport.ReportIdNewCount;
 								}
 								finally
 								{
@@ -449,9 +455,7 @@ namespace FarmManager
 								}
 							}
 
-							MeasurementListReportLast = new Bib3.PropertyGenTimespanInt64<ReportListReportSummary[]>(reportSummaryFromReportId.Values.ToArray(), time);
-
-							measureListReport.ListReportCount = MeasurementListReportLast?.Value?.Length;
+							MeasurementListReportLastTime = time;
 
 							return report;
 						}
@@ -600,7 +604,8 @@ namespace FarmManager
 						ListStepBrowserUsageFailed.Count / 2 < ListStepBrowserUsageFailed.Count(failed => failed.Value) ?
 						"Browser usage failed" : (requestBrowserProcessStartByAge ? ("browser age " + browserAge?.ToString()) : null);
 
-					Statistic.ReportReadCount = ReportDetailFromId.Count;
+					Statistic.ReportSummaryReadCount = ReportSummaryFromId.Count;
+					Statistic.ReportDetailReadCount = ReportDetailFromId.Count;
 					Statistic.AttackSentVillageCount = ArmySentLastTimeFromTargetVillageId.Count;
 
 					if (0 < report.BreakStartReason?.Length)

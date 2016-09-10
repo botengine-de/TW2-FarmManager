@@ -105,5 +105,9 @@ namespace FarmManager
 
 		static public Int64? ProcessIdFromOS(this BrowserProcessCreation browserProcessCreation) =>
 			browserProcessCreation?.BrowserProcess?.ProcessIdFromOS;
+
+		static public bool IsGoodEnoughForMemorization(this TwStruct.ReportListReportSummary reportSummary) =>
+			(reportSummary?.id).HasValue &&
+			(reportSummary?.time_created).HasValue;
 	}
 }

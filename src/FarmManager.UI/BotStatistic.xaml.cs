@@ -13,7 +13,8 @@ namespace FarmManager.UI
 		{
 			StartTimeCalView.Text = statistic?.StartTimeCal.ToLongTimeString();
 			BotStepCountView.Text = statistic?.BotStepCount.ToString();
-			ReportReadCountView.Text = statistic?.ReportReadCount.ToString();
+			ReportSummaryReadCountView.Text = statistic?.ReportSummaryReadCount.ToString();
+			ReportDetailReadCountView.Text = statistic?.ReportDetailReadCount.ToString();
 			AttackSentCountView.Text = statistic?.AttackSentCount.ToString();
 		}
 	}
