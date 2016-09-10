@@ -23,7 +23,7 @@ namespace FarmManager.UI
 			BreakPanel.Visibility = (0 < breakDurationRemaining?.TotalSeconds) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
 			BreakDurationRemainingView.Text = breakDurationRemaining?.ToLongTimeString();
 
-			StatisticsView?.Present(presented?.Statistic);
+			StatisticsView.Text = presented?.Statistics.RenderForUI();
 
 			StepLastView?.Present(presented?.StepBeforeBreakLastReport?.Value);
 

@@ -94,9 +94,6 @@
     <Compile Include="Bot.xaml.cs">
       <DependentUpon>Bot.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BotStatistic.xaml.cs">
-      <DependentUpon>BotStatistic.xaml</DependentUpon>
-    </Compile>
     <Compile Include="BotStepReport.xaml.cs">
       <DependentUpon>BotStepReport.xaml</DependentUpon>
     </Compile>
@@ -114,10 +111,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Bot.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="BotStatistic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

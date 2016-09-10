@@ -6,40 +6,41 @@
              xmlns:local="clr-namespace:FarmManager.UI"
              mc:Ignorable="d" 
              d:DesignHeight="555" d:DesignWidth="444">
-    <Grid>
-        <StackPanel>
-            <GroupBox
+	<Grid>
+		<StackPanel>
+			<GroupBox
                 Header="break">
-                <StackPanel
+				<StackPanel
                     Name="BreakPanel"
                     Orientation="Horizontal">
-                    <StackPanel
+					<StackPanel
                         Orientation="Horizontal">
-                        <TextBlock Text="current break ends in"></TextBlock>
-                        <TextBox Name="BreakDurationRemainingView" IsReadOnly="True" Width="77" Margin="3"></TextBox>
-                    </StackPanel>
-                    <Button
+						<TextBlock Text="current break ends in"></TextBlock>
+						<TextBox Name="BreakDurationRemainingView" IsReadOnly="True" Width="77" Margin="3"></TextBox>
+					</StackPanel>
+					<Button
                         VerticalAlignment="Center"
                         Click="BreakEndButton_Click">
-                        <TextBlock Text="end break now"></TextBlock>
-                    </Button>
-                </StackPanel>
-            </GroupBox>
-            <GroupBox
+						<TextBlock Text="end break now"></TextBlock>
+					</Button>
+				</StackPanel>
+			</GroupBox>
+			<GroupBox
             Header="statistics">
-                <local:BotStatistic
-                x:Name="StatisticsView"></local:BotStatistic>
-            </GroupBox>
-            <GroupBox
+				<TextBox
+					x:Name="StatisticsView"
+					IsReadOnly="True" Height="88" VerticalScrollBarVisibility="Auto"></TextBox>
+			</GroupBox>
+			<GroupBox
                 Header="last step">
-                <local:BotStepReport
+				<local:BotStepReport
                     x:Name="StepLastView"
                     Height="233"></local:BotStepReport>
-            </GroupBox>
+			</GroupBox>
 
-            <GroupBox Header="game enter URL measured">
-                <TextBox Name="GameEnterUrlView" IsReadOnly="True"></TextBox>
-            </GroupBox>
-        </StackPanel>
-    </Grid>
+			<GroupBox Header="game enter URL measured">
+				<TextBox Name="GameEnterUrlView" IsReadOnly="True"></TextBox>
+			</GroupBox>
+		</StackPanel>
+	</Grid>
 </UserControl>

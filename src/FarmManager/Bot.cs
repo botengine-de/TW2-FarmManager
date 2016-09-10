@@ -44,6 +44,8 @@ namespace FarmManager
 		public bool BrowserUsageFailed;
 
 		public string RequestBrowserProcessStart;
+
+		public BotStatistics Statistics;
 	}
 
 	public class BotStepMeasureListMovement
@@ -92,7 +94,7 @@ namespace FarmManager
 		public BotStepAttack AttackAgain;
 	}
 
-	public class BotStatistic
+	public class BotStatistics
 	{
 		public DateTime StartTimeCal;
 
@@ -148,7 +150,7 @@ namespace FarmManager
 
 		Int64 MeasurementListReportLastTime;
 
-		readonly public BotStatistic Statistic = new BotStatistic
+		readonly public BotStatistics Statistics = new BotStatistics
 		{
 			StartTimeCal = DateTime.Now,
 		};
@@ -569,7 +571,7 @@ namespace FarmManager
 						var sendArmyButtonElement = browserDocument.GetElementFromXPath("//*[@ng-click=\"sendArmy('attack')\"]")?.Result;
 
 						ArmySentLastTimeFromTargetVillageId[targetVillageId.Value] = time;
-						Statistic.AttackSentCount++;
+						Statistics.AttackSentCount++;
 
 						sendArmyButtonElement?.click();
 
@@ -604,9 +606,11 @@ namespace FarmManager
 						ListStepBrowserUsageFailed.Count / 2 < ListStepBrowserUsageFailed.Count(failed => failed.Value) ?
 						"Browser usage failed" : (requestBrowserProcessStartByAge ? ("browser age " + browserAge?.ToString()) : null);
 
-					Statistic.ReportSummaryReadCount = ReportSummaryFromId.Count;
-					Statistic.ReportDetailReadCount = ReportDetailFromId.Count;
-					Statistic.AttackSentVillageCount = ArmySentLastTimeFromTargetVillageId.Count;
+					Statistics.ReportSummaryReadCount = ReportSummaryFromId.Count;
+					Statistics.ReportDetailReadCount = ReportDetailFromId.Count;
+					Statistics.AttackSentVillageCount = ArmySentLastTimeFromTargetVillageId.Count;
+
+					report.Statistics = Statistics;
 
 					if (0 < report.BreakStartReason?.Length)
 					{
@@ -624,7 +628,7 @@ namespace FarmManager
 					if (report.BreakActiveNot)
 					{
 						StepBeforeBreakLastReport = stepLastReportAtTime;
-						Statistic.BotStepCount++;
+						Statistics.BotStepCount++;
 					}
 				}
 

@@ -124,5 +124,18 @@ namespace FarmManager.UI
 
 			return browserProcessCreation?.BrowserAddressTcp?.ToString() + " - " + (location?.TW2WorldIdFromUrl() ?? location);
 		}
+
+		static public string RenderForUI(this BotStatistics statistics) =>
+			null == statistics ? null :
+			string.Join(Environment.NewLine,
+				new[]
+				{
+					"started at: " + statistics?.StartTimeCal.ToLongTimeString(),
+					"bot step count: " + statistics?.BotStepCount,
+					"---- reports read ----",
+					"report.summary: " + statistics?.ReportSummaryReadCount +
+					", report.detail: " + statistics?.ReportDetailReadCount,
+					"attacks sent: " + statistics?.AttackSentCount,
+				});
 	}
 }
