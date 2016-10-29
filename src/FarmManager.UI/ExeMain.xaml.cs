@@ -35,7 +35,7 @@ namespace FarmManager.UI
 				if (0 < botGameEnterUrl?.Length)
 					return botGameEnterUrl;
 
-				return BrowserStartUrlDefault;
+				return StaticConfig.GameEnterUrlFromCommandlineArgs() ?? BrowserStartUrlDefault;
 			}
 		}
 

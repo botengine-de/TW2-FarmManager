@@ -67,6 +67,7 @@
     <Compile Include="Bot.cs" />
     <Compile Include="BrowserProcessCreation.cs" />
     <Compile Include="BrowserService.cs" />
+    <Compile Include="StaticConfig.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LogEntry.cs" />
